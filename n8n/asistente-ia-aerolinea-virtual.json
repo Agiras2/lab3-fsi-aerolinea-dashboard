@@ -1,0 +1,150 @@
+{
+  "name": "Asistente IA - Aerolínea Virtual",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "402b40f0-fbc0-4051-a3e9-3770a7477067",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "77ebf792-5ef6-4c70-8f07-c4ae0c4ac7f8",
+      "name": "Webhook",
+      "webhookId": "402b40f0-fbc0-4051-a3e9-3770a7477067"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "Eres el asistente de IA del Panel Comercial de una aerolínea virtual. Tu usuario es el Gerente Comercial.\n\nContexto del negocio:\n- La aerolínea vende tiquetes por cuatro canales, agrupados en tres equipos: Directo (counter de aeropuerto y call center), Digital (sitio web y app) y Agencias (agencias aliadas).\n- Cada reserva atraviesa un embudo de siete estados: Cotización, Reservada, Emitida, Check-in, Abordada, y los dos estados de pérdida, Cancelada y No-show.\n- Los pasajeros tienen un nivel de fidelización: Basic, Gold o Platinum.\n\nKPIs que el gerente monitorea:\n- Ingresos Totales: suma del valor de las reservas confirmadas.\n- Reservas Activas: reservas aún abiertas, sin emitir.\n- Tasa de Conversión: porcentaje de reservas confirmadas sobre el total de reservas cerradas.\n- Tarifa Promedio: valor promedio por reserva confirmada.\n- Factor de Ocupación: pasajeros confirmados sobre la capacidad del vuelo.\n\nTu rol: ayudar al gerente a interpretar estas métricas, explicar qué significan y sugerir acciones comerciales concretas, como campañas de recuperación de pago para reservas estancadas, refuerzo de canales por debajo de su meta, o ajustes de tarifa y frecuencia en rutas con baja ocupación.\n\nReglas de respuesta:\n- Responde siempre en español, de forma concisa y profesional.\n- Máximo 4 o 5 frases por respuesta, salvo que te pidan más detalle.\n- No inventes cifras exactas. Aún no tienes acceso directo a los datos del dashboard: si te preguntan un número puntual, explica dónde verlo en el panel y qué significa.\n- No uses formato Markdown (nada de asteriscos ni almohadillas): tu respuesta se muestra como texto plano en una ventana de chat pequeña."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "85380219-b91a-42da-a896-9e5fdca015c0",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        96,
+        208
+      ],
+      "id": "637914df-faad-4acb-a546-5a701b708972",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "nM6188S4chOFXNSD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Webhook').item.json.body.sessionId || 'aerolinea-dashboard' }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        240,
+        208
+      ],
+      "id": "35a290b6-5fd6-48f0-903b-c860f7d1c449",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"response\": {{ JSON.stringify($json.output) }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        592,
+        0
+      ],
+      "id": "6a93c34b-9565-4bcc-9e17-2200b2471db2",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "2c80ad7f-67c5-4946-b798-fcdd9174fee0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "331aae0cef29d0215bbbfdd46353420f68c4b57e4b226bf5755a3b1e5e9448a9"
+  },
+  "nodeGroups": [],
+  "id": "Tv3iswV0XV8H2rkO",
+  "tags": []
+}

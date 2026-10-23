@@ -1,0 +1,155 @@
+/* ============================================================
+   App.css — Sistema de diseño global
+   Paleta, tipografía, reset y layout raíz del dashboard
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* ── Variables del sistema de diseño ── */
+:root {
+  /* Colores */
+  --bg-page: #F2F3F7;
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #FAFAFA;
+  --accent: #FF6B4A;
+  --accent-soft: rgba(255, 107, 74, 0.12);
+  --accent-hover: #FF8265;
+  --green: #22C55E;
+  --green-soft: rgba(34, 197, 94, 0.12);
+  --red: #EF4444;
+  --red-soft: rgba(239, 68, 68, 0.12);
+  --blue: #3B82F6;
+  --blue-soft: rgba(59, 130, 246, 0.12);
+  --amber: #F59E0B;
+  --amber-soft: rgba(245, 158, 11, 0.12);
+
+  /* Texto */
+  --text-primary: #1A1A2E;
+  --text-secondary: #6B7280;
+  --text-tertiary: #9CA3AF;
+  --text-inverse: #FFFFFF;
+
+  /* Bordes */
+  --border: #E5E7EB;
+  --border-light: #F3F4F6;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.10);
+
+  /* Bordes redondeados */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+
+  /* Tipografía */
+  --font: 'Plus Jakarta Sans', sans-serif;
+
+  /* Sidebar */
+  --sidebar-width: 72px;
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+/* ── Layout raíz del dashboard ── */
+.dashboard-root {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.dashboard-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Layout de las dos columnas (centro + lateral derecho) */
+.content-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  align-items: start;
+}
+
+.content-center {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Utilidades de tarjetas ── */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+}
+
+/* ── KPI row ── */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* ── Scrollbar personalizado ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}

@@ -1,0 +1,224 @@
+{
+  "_meta": {
+    "proyecto": "Dashboard Comercial - Aerolinea Virtual",
+    "curso": "Fundamentos de Sistemas de Informacion - UdeA",
+    "laboratorio": 3,
+    "descripcion": "Esquema de referencia (norte) para la generacion de datos simulados. NO es una base de datos real: define unicamente la forma exacta que deben tener los objetos del archivo mockData.js.",
+    "moneda_base": "COP",
+    "entidades": ["canales", "estados", "pasajeros", "vuelos", "reservas"]
+  },
+
+  "canales": [
+    {
+      "id": "ch1",
+      "full_name": "Counter Aeropuerto MDE",
+      "team": "Directo",
+      "email": "counter.mde@aerolineavirtual.com",
+      "role": "agente",
+      "avatar_url": "https://i.pravatar.cc/80?img=12",
+      "quota_amount": 180000000,
+      "status": "active"
+    },
+    {
+      "id": "ch2",
+      "full_name": "Sitio Web y App",
+      "team": "Digital",
+      "email": "ecommerce@aerolineavirtual.com",
+      "role": "admin",
+      "avatar_url": "https://i.pravatar.cc/80?img=32",
+      "quota_amount": 420000000,
+      "status": "active"
+    },
+    {
+      "id": "ch3",
+      "full_name": "Agencias Aliadas",
+      "team": "Agencias",
+      "email": "agencias@aerolineavirtual.com",
+      "role": "supervisor",
+      "avatar_url": "https://i.pravatar.cc/80?img=45",
+      "quota_amount": 250000000,
+      "status": "active"
+    },
+    {
+      "id": "ch4",
+      "full_name": "Call Center",
+      "team": "Directo",
+      "email": "callcenter@aerolineavirtual.com",
+      "role": "agente",
+      "avatar_url": "https://i.pravatar.cc/80?img=5",
+      "quota_amount": 120000000,
+      "status": "active"
+    }
+  ],
+
+  "estados": [
+    { "id": "s1", "name": "Cotizacion",  "display_order": 1, "conversion_probability": 10,  "color_hint": "gris" },
+    { "id": "s2", "name": "Reservada",   "display_order": 2, "conversion_probability": 45,  "color_hint": "azul" },
+    { "id": "s3", "name": "Emitida",     "display_order": 3, "conversion_probability": 85,  "color_hint": "naranja" },
+    { "id": "s4", "name": "Check-in",    "display_order": 4, "conversion_probability": 97,  "color_hint": "naranja" },
+    { "id": "s5", "name": "Abordada",    "display_order": 5, "conversion_probability": 100, "color_hint": "verde" },
+    { "id": "s6", "name": "Cancelada",   "display_order": 6, "conversion_probability": 0,   "color_hint": "rojo" },
+    { "id": "s7", "name": "No-show",     "display_order": 7, "conversion_probability": 0,   "color_hint": "rojo" }
+  ],
+
+  "pasajeros": [
+    {
+      "id": "p1",
+      "full_name": "Laura Restrepo Gomez",
+      "document_id": "CC 1017234567",
+      "email": "laura.restrepo@correo.com",
+      "phone": "+57 300 1234567",
+      "membership": "Platinum",
+      "loyalty_points": 48200,
+      "created_at": "2024-03-14T10:00:00Z"
+    },
+    {
+      "id": "p2",
+      "full_name": "Juan Pablo Mesa Arango",
+      "document_id": "CC 71654321",
+      "email": "jp.mesa@correo.com",
+      "phone": "+57 311 7654321",
+      "membership": "Gold",
+      "loyalty_points": 15600,
+      "created_at": "2025-01-22T15:30:00Z"
+    },
+    {
+      "id": "p3",
+      "full_name": "Sofia Cardenas Ruiz",
+      "document_id": "CC 1098765432",
+      "email": "sofia.cardenas@correo.com",
+      "phone": "+57 320 5558899",
+      "membership": "Basic",
+      "loyalty_points": 1200,
+      "created_at": "2026-06-02T08:45:00Z"
+    }
+  ],
+
+  "vuelos": [
+    {
+      "id": "f1",
+      "flight_number": "AV8432",
+      "origin": "MDE",
+      "destination": "BOG",
+      "route": "MDE - BOG",
+      "departure_at": "2026-10-18T06:30:00Z",
+      "arrival_at": "2026-10-18T07:35:00Z",
+      "aircraft": "Airbus A320",
+      "total_seats": 180,
+      "delay_minutes": 0,
+      "status": "arrived"
+    },
+    {
+      "id": "f2",
+      "flight_number": "AV9120",
+      "origin": "BOG",
+      "destination": "MIA",
+      "route": "BOG - MIA",
+      "departure_at": "2026-10-21T23:10:00Z",
+      "arrival_at": "2026-10-22T04:05:00Z",
+      "aircraft": "Boeing 787-8",
+      "total_seats": 250,
+      "delay_minutes": 75,
+      "status": "arrived"
+    },
+    {
+      "id": "f3",
+      "flight_number": "AV7005",
+      "origin": "MDE",
+      "destination": "CTG",
+      "route": "MDE - CTG",
+      "departure_at": "2026-10-25T14:00:00Z",
+      "arrival_at": "2026-10-25T15:20:00Z",
+      "aircraft": "Airbus A320",
+      "total_seats": 180,
+      "delay_minutes": 0,
+      "status": "scheduled"
+    }
+  ],
+
+  "reservas": [
+    {
+      "id": "r1",
+      "booking_code": "AV7K2P",
+      "passenger_id": "p1",
+      "flight_id": "f1",
+      "channel_id": "ch2",
+      "stage_id": "s5",
+      "amount": 890000,
+      "currency": "COP",
+      "cabin_class": "Business",
+      "seat_number": "2A",
+      "passengers_count": 1,
+      "baggage_kg": 18.5,
+      "status": "confirmed",
+      "created_at": "2026-09-28T11:20:00Z",
+      "expected_departure_date": "2026-10-18",
+      "closed_at": "2026-09-28T11:35:00Z",
+      "cancel_reason": null
+    },
+    {
+      "id": "r2",
+      "booking_code": "AV3M9Q",
+      "passenger_id": "p2",
+      "flight_id": "f2",
+      "channel_id": "ch3",
+      "stage_id": "s3",
+      "amount": 2450000,
+      "currency": "COP",
+      "cabin_class": "Economy",
+      "seat_number": "22C",
+      "passengers_count": 2,
+      "baggage_kg": 32.0,
+      "status": "confirmed",
+      "created_at": "2026-10-05T09:00:00Z",
+      "expected_departure_date": "2026-10-21",
+      "closed_at": "2026-10-06T16:40:00Z",
+      "cancel_reason": null
+    },
+    {
+      "id": "r3",
+      "booking_code": "AV1X8L",
+      "passenger_id": "p3",
+      "flight_id": "f3",
+      "channel_id": "ch1",
+      "stage_id": "s2",
+      "amount": 410000,
+      "currency": "COP",
+      "cabin_class": "Economy",
+      "seat_number": "14A",
+      "passengers_count": 1,
+      "baggage_kg": 9.0,
+      "status": "open",
+      "created_at": "2026-10-20T17:05:00Z",
+      "expected_departure_date": "2026-10-25",
+      "closed_at": null,
+      "cancel_reason": null
+    },
+    {
+      "id": "r4",
+      "booking_code": "AV5T4D",
+      "passenger_id": "p2",
+      "flight_id": "f1",
+      "channel_id": "ch4",
+      "stage_id": "s6",
+      "amount": 760000,
+      "currency": "COP",
+      "cabin_class": "Premium",
+      "seat_number": "8F",
+      "passengers_count": 1,
+      "baggage_kg": 12.0,
+      "status": "cancelled",
+      "created_at": "2026-09-30T13:15:00Z",
+      "expected_departure_date": "2026-10-18",
+      "closed_at": "2026-10-10T10:00:00Z",
+      "cancel_reason": "cambio de planes"
+    }
+  ],
+
+  "_relaciones": [
+    "1 Canal de Venta gestiona N Reservas",
+    "1 Pasajero puede tener N Reservas (historico de viajes)",
+    "1 Vuelo contiene N Reservas (base del Factor de Ocupacion e ingresos por ruta)",
+    "1 Estado de Reserva contiene N Reservas (agrupacion del grafico de barras)"
+  ]
+}
